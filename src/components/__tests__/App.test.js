@@ -12,3 +12,12 @@ it('shows a comment box', () => {
 
     ReactDOM.unmountComponentAtNode(div);
 });
+
+it('shows a comment list', () => {
+    const div = document.createElement('div');
+    ReactDOM.render(<App />, div);
+
+    expect(div.innerHTML).toContain('Comment List goes here');
+
+    ReactDOM.unmountComponentAtNode(div);
+});
