@@ -7,7 +7,11 @@ let wrapper;
 
 beforeEach(() => {
     wrapper = mount(<CommentBox />)
-})
+});
+
+afterEach(() => {
+    wrapper.unmount();
+});
 
 it('renders a text area and a button', () => {
     expect(wrapper.find('textarea').length).toEqual(1);
