@@ -7,8 +7,6 @@ let wrapper;
 
 beforeEach(() => {
     wrapper = mount(<CommentBox />);
-    wrapper.find('textarea').simulate('change', { target: { value: 'new comment' } });
-    wrapper.update();
 });
 
 afterEach(() => {
@@ -20,11 +18,19 @@ it('renders a text area and a button', () => {
     expect(wrapper.find('button').length).toEqual(1);
 });
 
-it('has a textarea that users can type in', () => {
-    expect(wrapper.find('textarea').prop('value')).toEqual('new comment');
+describe('the text area', () => {
+    beforeEach(() => {
+        wrapper.find('textarea').simulate('change', { target: { value: 'new comment' } });
+        wrapper.update();
+    });
+
+    it('has a textarea that users can type in', () => {
+        expect(wrapper.find('textarea').prop('value')).toEqual('new comment');
+    });
+    
+    it('empties the form state after submittal', () => {
+        wrapper.find('form').simulate('submit');
+        expect(wrapper.find('textarea').prop('value')).toEqual("");
+    });
 });
 
-it('empties the form state after submittal', () => {
-    wrapper.find('form').simulate('submit');
-    expect(wrapper.find('textarea').prop('value')).toEqual("");
-});
