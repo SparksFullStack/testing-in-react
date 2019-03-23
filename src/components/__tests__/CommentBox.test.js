@@ -6,7 +6,9 @@ import CommentBox from '../CommentBox';
 let wrapper;
 
 beforeEach(() => {
-    wrapper = mount(<CommentBox />)
+    wrapper = mount(<CommentBox />);
+    wrapper.find('textarea').simulate('change', { target: { value: 'new comment' } });
+    wrapper.update();
 });
 
 afterEach(() => {
@@ -19,14 +21,10 @@ it('renders a text area and a button', () => {
 });
 
 it('has a textarea that users can type in', () => {
-    wrapper.find('textarea').simulate('change', { target: { value: 'new comment' } });
-    wrapper.update();
     expect(wrapper.find('textarea').prop('value')).toEqual('new comment');
 });
 
 it('empties the form state after submittal', () => {
-    wrapper.find('textarea').simulate('change', { target: { value: 'testing submit' } });
-    wrapper.update();
     wrapper.find('form').simulate('submit');
     expect(wrapper.find('textarea').prop('value')).toEqual("");
 });
